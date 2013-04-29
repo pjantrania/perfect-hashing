@@ -58,7 +58,7 @@ void table_build(table *t) {
 
       j = 0;
       iter = n->bucket_head;
-      //printf("Inserting %ld elements from node %ld into secondary table...\n", n->count, i);
+      printf("Inserting %ld elements from node %ld into secondary table...\n", n->count, i);
       while (  j < n->count ) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
@@ -66,6 +66,7 @@ void table_build(table *t) {
 	  memset(n->secondary_table, 0, sizeof(TABLE_TYPE)*mpz_get_ui(node_size));
 	  iter = n->bucket_head;
 	  j = 0;
+	  printf("redoing...\n");
 	  continue;
 	} else if ( j < n->count - 1 ) {
 	  iter = iter->next;
@@ -73,7 +74,7 @@ void table_build(table *t) {
 	j++;
 	
       }
-      //printf("Done inserting elements\n");
+      printf("Done inserting elements\n");
 
       for ( j = 0; j < n->count; j++ )
 	pop_bucket(n);
