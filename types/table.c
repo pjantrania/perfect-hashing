@@ -174,15 +174,18 @@ int table_node_insert(table_node *node, TABLE_TYPE v) {
   mpz_clear(value);
   mpz_clear(position);
   
-  if ( node->secondary_table[p] != 0 ) {
-    /*    printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
+  if ( node->secondary_table[p] == v ) {
+    return 0;
+  } else if ( node->secondary_table[p] != 0 ) {
+    printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
     printf("function: %ld x + %ld mod %ld mod %ld\n", mpz_get_ui(node->secondary_hash_function.a),
 	   mpz_get_ui(node->secondary_hash_function.b), mpz_get_ui(node->secondary_hash_function.p),
-	   mpz_get_ui(node->secondary_hash_function.m));*/
+	   mpz_get_ui(node->secondary_hash_function.m));
     return 1;
+  } else {
+    node->secondary_table[p] = v;
+    return 0;
   }
-  node->secondary_table[p] = v;
-  return 0;
 }
 
 int table_node_find(table_node *node, TABLE_TYPE v) {
