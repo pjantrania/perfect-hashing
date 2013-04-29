@@ -170,6 +170,7 @@ int table_node_insert(table_node *node, TABLE_TYPE v) {
   mpz_clear(position);
   
   if ( node->secondary_table[p] != 0 ) {
+    printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
     return 1;
   }
   node->secondary_table[p] = v;
