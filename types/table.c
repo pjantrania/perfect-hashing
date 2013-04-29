@@ -52,7 +52,7 @@ void table_build(table *t) {
       mpz_set_ui(node_size, n->count * n->count);
       mpz_nextprime(node_size, node_size);
       n->secondary_table = (TABLE_TYPE*) calloc(mpz_get_ui(node_size), sizeof(TABLE_TYPE));
-      hash_fn_init(&n->secondary_hash_function, n->count * n->count);
+      hash_fn_init(&n->secondary_hash_function, mpz_get_ui(node_size));
       hash_fn_generate(&n->secondary_hash_function, t->universe_size);
 
       j = 0;
