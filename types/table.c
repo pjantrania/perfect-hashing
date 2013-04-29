@@ -61,7 +61,7 @@ void table_build(table *t) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
 	  count_iter++;
-	  if ( count_iter > 20000 ) {
+	  if ( count_iter > 7500 ) {
 	    printf("Having trouble inserting %lld into node %ld\n", iter->value, i);
 	    exit(1);
 	  }
