@@ -62,9 +62,6 @@ void table_build(table *t) {
       while (  j < n->count ) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
-	  mpz_nextprime(node_size, node_size);
-	  hash_fn_destroy(&n->secondary_hash_function);
-	  hash_fn_init(&n->secondary_hash_function, mpz_get_ui(node_size));
 	  hash_fn_generate(&n->secondary_hash_function, t->universe_size);
 	  free(n->secondary_table);
 	  n->secondary_table = (TABLE_TYPE*) calloc(mpz_get_ui(node_size), sizeof(TABLE_TYPE));
@@ -177,10 +174,10 @@ int table_node_insert(table_node *node, TABLE_TYPE v) {
   if ( node->secondary_table[p] == v ) {
     return 0;
   } else if ( node->secondary_table[p] != 0 ) {
-    printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
+    /*printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
     printf("function: %ld x + %ld mod %ld mod %ld\n", mpz_get_ui(node->secondary_hash_function.a),
 	   mpz_get_ui(node->secondary_hash_function.b), mpz_get_ui(node->secondary_hash_function.p),
-	   mpz_get_ui(node->secondary_hash_function.m));
+	   mpz_get_ui(node->secondary_hash_function.m));*/
     return 1;
   } else {
     node->secondary_table[p] = v;
