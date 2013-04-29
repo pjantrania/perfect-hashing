@@ -58,7 +58,6 @@ void table_build(table *t) {
 
       j = 0;
       iter = n->bucket_head;
-      //printf("Inserting %ld elements from node %ld into secondary table...\n", n->count, i);
       while (  j < n->count ) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
@@ -68,7 +67,6 @@ void table_build(table *t) {
 
 	  iter = n->bucket_head;
 	  j = 0;
-	  //printf("redoing %lld...\n", iter->value);
 	  continue;
 	} else if ( j < n->count - 1 ) {
 	  iter = iter->next;
@@ -76,7 +74,6 @@ void table_build(table *t) {
 	j++;
 	
       }
-      //printf("Done inserting elements\n");
 
       for ( j = 0; j < n->count; j++ )
 	pop_bucket(n);
@@ -174,10 +171,6 @@ int table_node_insert(table_node *node, TABLE_TYPE v) {
   if ( node->secondary_table[p] == v ) {
     return 0;
   } else if ( node->secondary_table[p] != 0 ) {
-    /*printf("conflict in position %ld: %lld is evicting %lld\n", p, v, node->secondary_table[p]);
-    printf("function: %ld x + %ld mod %ld mod %ld\n", mpz_get_ui(node->secondary_hash_function.a),
-	   mpz_get_ui(node->secondary_hash_function.b), mpz_get_ui(node->secondary_hash_function.p),
-	   mpz_get_ui(node->secondary_hash_function.m));*/
     return 1;
   } else {
     node->secondary_table[p] = v;
