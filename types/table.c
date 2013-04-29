@@ -24,6 +24,7 @@ void table_build(table *t) {
   mpz_set_ui(total_size, 0);
 
   count_iter = 0;
+  printf("Checking space constraint...\n");
   for ( ;; ) {
     for ( i = 0; i < t->size; i++ ) {
       bucket_size = t->primary_table[i].count;
@@ -44,7 +45,7 @@ void table_build(table *t) {
   
   mpz_clear(total_size);
   mpz_init(node_size);
-
+  printf("Constructing secondary tables...\n");
   count_iter = 0;
   for ( i = 0; i < t->size; i++ ) {
     if ( t->primary_table[i].count > 0 ) {
@@ -57,6 +58,7 @@ void table_build(table *t) {
 
       j = 0;
       iter = n->bucket_head;
+      //printf("Inserting %ld elements from node %ld into secondary table...\n", n->count, i);
       while (  j < n->count ) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
@@ -71,6 +73,7 @@ void table_build(table *t) {
 	j++;
 	
       }
+      //printf("Done inserting elements\n");
 
       for ( j = 0; j < n->count; j++ )
 	pop_bucket(n);

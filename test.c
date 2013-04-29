@@ -48,6 +48,7 @@ void main(int argc, char **argv) {
     i++;
   }
   fclose(fp);
+  printf("Building table...\n");
   table_build(&t);
   printf("Done inserting %ld numbers (%ld invalids)\n", i, invalid);
   
