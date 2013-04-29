@@ -63,6 +63,9 @@ void table_build(table *t) {
 	  count_iter++;
 	  if ( count_iter > 7500 ) {
 	    printf("Having trouble inserting %lld into node %ld\n", iter->value, i);
+	    printf("Function: %ld x + &ld mod %ld mod %ld\n", mpz_get_ui(n->secondary_hash_function.a),
+		   mpz_get_ui(n->secondary_hash_function.b), mpz_get_ui(n->secondary_hash_function.p),
+		   mpz_get_ui(n->secondary_hash_function.m));
 	    exit(1);
 	  }
 	  hash_fn_generate(&n->secondary_hash_function, t->universe_size);
