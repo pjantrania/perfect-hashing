@@ -31,7 +31,7 @@ void main(int argc, char **argv) {
   
   mpz_init(u);
   mpz_set_ui(u, 1000 * 1000);
-  mpz_mul_ui(u, u, 1000);
+  mpz_mul_ui(u, u, 10000);
   table_init(&t, count, u);
   srand(time(NULL));
 
