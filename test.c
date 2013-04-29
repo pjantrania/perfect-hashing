@@ -4,7 +4,7 @@
 #include <time.h>
 #include <sys/time.h>
 
-#define PROB_INVALID .05
+#define PROB_INVALID .20
 
 void main(int argc, char **argv) {
   if ( argc != 3 ) {
@@ -33,13 +33,14 @@ void main(int argc, char **argv) {
   mpz_set_ui(u, 1000 * 1000);
   mpz_mul_ui(u, u, 1000);
   table_init(&t, count, u);
+  srand(time(NULL));
 
   i = 0;
   invalid = 0;
   while ( fgets(buf, 12, fp) != NULL ) {
     sscanf(buf, "%lld\n", &phonenum);
     numlist[i] = phonenum;
-    if (rand() <= PROB_INVALID) {
+    if (rand() <= PROB_INVALID * RAND_MAX) {
       numlist[i] = numlist[i] / 4;
       invalid++;
     }
