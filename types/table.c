@@ -62,8 +62,13 @@ void table_build(table *t) {
       while (  j < n->count ) {
 	r = table_node_insert(n, iter->value);
 	if ( r == 1 ) {
+	  mpz_nextprime(node_size, node_size);
+	  hash_fn_destroy(&n->secondary_hash_function);
+	  hash_fn_init(&n->secondary_hash_function, mpz_get_ui(node_size));
 	  hash_fn_generate(&n->secondary_hash_function, t->universe_size);
-	  memset(n->secondary_table, 0, sizeof(TABLE_TYPE)*mpz_get_ui(node_size));
+	  free(n->secondary_table);
+	  n->secondary_table = (TABLE_TYPE*) calloc(mpz_get_ui(node_size), sizeof(TABLE_TYPE));
+
 	  iter = n->bucket_head;
 	  j = 0;
 	  printf("redoing %lld...\n", iter->value);
