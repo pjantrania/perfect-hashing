@@ -66,7 +66,7 @@ void table_build(table *t) {
 	  memset(n->secondary_table, 0, sizeof(TABLE_TYPE)*mpz_get_ui(node_size));
 	  iter = n->bucket_head;
 	  j = 0;
-	  printf("redoing...\n");
+	  printf("redoing %lld...\n", iter->value);
 	  continue;
 	} else if ( j < n->count - 1 ) {
 	  iter = iter->next;
